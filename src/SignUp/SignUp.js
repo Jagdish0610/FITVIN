@@ -28,10 +28,30 @@ const SignUp=()=> {
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", form);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   
+  // console.log("Form submitted:", form);
+  // };
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const res = await fetch("http://localhost:8000/api/accounts/signup/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(form),
+  });
+
+  const data = await res.json();
+  if (res.ok) {
+    alert("Signup successful!");
+  } else {
+    alert("Signup failed: " + JSON.stringify(data));
+  }
+};
 
   return (
     <Box
