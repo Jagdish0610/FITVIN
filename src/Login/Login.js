@@ -13,7 +13,7 @@ import {
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import LockIcon from "@mui/icons-material/Lock";
 
-const Login = () => {
+const Login=()=> {
   const [form, setForm] = useState({
     phone: "",
     password: "",
@@ -25,36 +25,15 @@ const Login = () => {
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // prevent default form submission
-
-    try {
-      const response = await fetch("http://localhost:8000/api/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          phone: form.phone,
-          password: form.password
-        })
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        // Redirect or save token as needed
-        window.location.href = data.redirect_url || "/home"; // fallback URL
-      } else {
-        alert(data.error || "Invalid login");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Something went wrong.");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Login form submitted:", form);
   };
 
   return (
     <Box
       sx={{
-        backgroundColor: "#1e1e1e",
+        backgroundColor: "#1e1e1e", // dark background
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
@@ -150,6 +129,6 @@ const Login = () => {
       </Container>
     </Box>
   );
-};
+}
 
 export default Login;

@@ -28,35 +28,10 @@ const SignUp=()=> {
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
   };
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const payload = {
-    phone: form.phone,
-    full_name: form.fullName,
-    email: form.email,
-    password: form.password,
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted:", form);
   };
-
-  try {
-    const response = await fetch("http://localhost:8000/api/register/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      alert("Registered successfully!");
-    } else {
-      alert("Error: " + JSON.stringify(data));
-    }
-  } catch (err) {
-    alert("Server error");
-  }
-};
 
   return (
     <Box
